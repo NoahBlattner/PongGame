@@ -13,14 +13,19 @@ public class GameWindow extends JFrame {
     public GameWindow() {
         super("Pong");
 
+        // Set window close operation
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(800, 600);
-        setLayout(null);
 
+        // Set window size
+        setSize(800, 600);
         setPreferredSize(new Dimension(800, 600));
+        setResizable(false);
+
+        // Set window style
+        setLayout(null);
         getContentPane().setBackground(Color.black);
 
-
+        // Add bounce bars
         player1BounceBar = new BounceBar(EPlayer.PLAYER1, getWidth(), getHeight());
         add(player1BounceBar);
         player2BounceBar = new BounceBar(EPlayer.PLAYER2, getWidth(), getHeight());

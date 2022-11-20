@@ -1,11 +1,12 @@
 package GameLauncher;
 
-import PongGame.GameWindow.GameWindow;
+import PongGame.GameManagement.*;
 
 import java.awt.*;
 
 public class GameLauncher {
     public static void main(String[] args) {
-        GameWindow gameWindow = new GameWindow();
+        Game game = new Game();
+        game.start();
     }
 }
