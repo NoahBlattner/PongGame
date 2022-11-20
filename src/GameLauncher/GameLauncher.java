@@ -2,24 +2,23 @@ package GameLauncher;
 
 import PongGame.GameManagement.*;
 
-import java.awt.*;
 import java.util.concurrent.TimeUnit;
 
 public class GameLauncher {
     public static void main(String[] args) throws InterruptedException {
-        Game game = new Game();
-        game.start();
+        GameEngine game = new GameEngine();
+        game.startGame();
 
         TimeUnit.SECONDS.sleep(1);
 
-        game.pause();
+        game.pauseGame();
 
         TimeUnit.SECONDS.sleep(1);
 
-        game.resume();
+        game.resumeGame();
 
         TimeUnit.SECONDS.sleep(1);
 
-        game.stop();
+        game.stopGame();
     }
 }

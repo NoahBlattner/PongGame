@@ -4,7 +4,7 @@ import PongGame.GameWindow.GameWindow;
 
 import java.util.concurrent.TimeUnit;
 
-public class Game implements Runnable {
+public class GameEngine implements Runnable {
 
     // Game variables
     private Gamemode gamemode;
@@ -62,7 +62,7 @@ public class Game implements Runnable {
     /**
      * Start the game
      */
-    public void start() {
+    public void startGame() {
         if (gameState == GameState.UNINITIALIZED) {
             gamemode = new Gamemode();
             gameWindow = new GameWindow();
@@ -79,7 +79,7 @@ public class Game implements Runnable {
     /**
      * Pause the game
      */
-    public void pause() {
+    public void pauseGame() {
         if (gameState == GameState.RUNNING) {
             gamemode.pause();
             gameState = GameState.PAUSED;
@@ -92,7 +92,7 @@ public class Game implements Runnable {
     /**
      * Resume the game
      */
-    public void resume() {
+    public void resumeGame() {
         if (gameState == GameState.PAUSED) {
             gamemode.resume();
             gameState = GameState.RUNNING;
@@ -105,7 +105,7 @@ public class Game implements Runnable {
     /**
      * Stop the game
      */
-    public void stop() {
+    public void stopGame() {
         if (gameState == GameState.RUNNING || gameState == GameState.PAUSED) {
             // Close the game window
             gameWindow.dispose();
