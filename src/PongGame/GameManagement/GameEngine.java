@@ -1,7 +1,9 @@
 package PongGame.GameManagement;
 
+import PongGame.EPlayer;
 import PongGame.GameWindow.GameWindow;
 
+import java.awt.*;
 import java.util.concurrent.TimeUnit;
 
 public class GameEngine implements Runnable {
@@ -142,5 +144,13 @@ public class GameEngine implements Runnable {
 
     public GameWindow getGameWindow() {
         return gameWindow;
+    }
+
+    public Dimension getBounceBarSize(EPlayer player) {
+        if (player == EPlayer.PLAYER1) {
+            return gameWindow.getBounceBar(EPlayer.PLAYER1).getSize();
+        } else {
+            return gameWindow.getBounceBar(EPlayer.PLAYER2).getSize();
+        }
     }
 }

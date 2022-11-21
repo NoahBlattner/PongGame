@@ -25,9 +25,9 @@ public class BounceBar extends Panel {
         // Set position
         // If player is player 1
         if (player == EPlayer.PLAYER1) { // Set position to left side
-            setLocation(gameWindowWidth / 8 - getWidth(), gameWindowHeight / 2 - getHeight());
+            setLocation(gameWindowWidth / 8 - getWidth(), (int) (gameWindowHeight / 2 - getHeight() / 1.5));
         } else { // Set position to right side
-            setLocation(gameWindowWidth / 8 * 7 - getWidth(), gameWindowHeight / 2 - getHeight());
+            setLocation(gameWindowWidth / 8 * 7 - getWidth(), (int) (gameWindowHeight / 2 - getHeight() / 1.5));
         }
     }
 

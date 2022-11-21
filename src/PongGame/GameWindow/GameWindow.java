@@ -10,6 +10,8 @@ public class GameWindow extends JFrame {
     private BounceBar player1BounceBar;
     private BounceBar player2BounceBar;
 
+    private BouncyBall bouncyBall;
+
     public GameWindow() {
         super("Pong");
 
@@ -31,15 +33,22 @@ public class GameWindow extends JFrame {
         player2BounceBar = new BounceBar(EPlayer.PLAYER2, getWidth(), getHeight());
         add(player2BounceBar);
 
+        // Add bouncy ball
+        bouncyBall = new BouncyBall(this);
+        add(bouncyBall);
+
         setVisible(true);
     }
 
-    public BounceBar getPlayer1BounceBar() {
-        return player1BounceBar;
+    public BounceBar getBounceBar(EPlayer player) {
+        if (player == EPlayer.PLAYER1) {
+            return player1BounceBar;
+        } else {
+            return player2BounceBar;
+        }
     }
 
-    public BounceBar getPlayer2BounceBar() {
-        return player2BounceBar;
+    public BouncyBall getBouncyBall() {
+        return bouncyBall;
     }
-
 }
