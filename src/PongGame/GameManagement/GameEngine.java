@@ -45,8 +45,8 @@ public class GameEngine implements Runnable {
         throw new NoGameRunningException();
     }
 
-    private void tick(long deltaTime) {
-        gamemode.tick(deltaTime);
+    private void tick(float deltaTimeSeconds) {
+        gamemode.tick(deltaTimeSeconds);
     }
 
     @Override
@@ -60,10 +60,10 @@ public class GameEngine implements Runnable {
 
                 // Calculate delta time
                 long currentFrameTime = System.currentTimeMillis();
-                long deltaTime = currentFrameTime - lastFrameTime;
+                long deltaTimeMS = currentFrameTime - lastFrameTime;
 
                 // Execute tick
-                tick(deltaTime);
+                tick(deltaTimeMS / 1000F);
 
                 // Update last frame time
                 lastFrameTime = currentFrameTime;

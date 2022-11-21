@@ -5,7 +5,8 @@ import PongGame.GameWindow.BounceBar;
 import PongGame.GameWindow.GameWindow;
 
 public class Gamemode {
-    int tickCount = 0;
+    // Game constants
+    private static final int SPEED = 500;
 
     // Game variables
     private PlayerController playerController1;
@@ -33,8 +34,8 @@ public class Gamemode {
         System.out.println("Game resumed");
     }
 
-    public void tick(long deltaTime) {
-        bounceBar1.setLocation(bounceBar1.getX(), (int) (bounceBar1.getY() + playerController1.getYAxis() * (deltaTime / 1000F)));
-        bounceBar2.setLocation(bounceBar2.getX(), (int) (bounceBar2.getY() + playerController2.getYAxis() * (deltaTime / 1000F)));
+    public void tick(float deltaTime) {
+        bounceBar1.moveY((int) (playerController1.getYAxis() * SPEED * deltaTime));
+        bounceBar2.moveY((int) (playerController2.getYAxis() * SPEED * deltaTime));
     }
 }

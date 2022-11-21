@@ -2,8 +2,6 @@ package PongGame.GameWindow;
 
 import PongGame.EPlayer;
 
-import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 
 public class BounceBar extends Panel {
@@ -38,15 +36,11 @@ public class BounceBar extends Panel {
      * Moves the bounce bar up
      * @param moveDistance The distance the bounce bar should move
      */
-    public void moveUp(int moveDistance) {
-        setLocation(getX(), getY() - moveDistance);
+    public void moveY(int moveDistance) {
+        int newY = getY() + moveDistance;
+        if (newY > 0 && newY < getParent().getHeight() - getHeight()) {
+            setLocation(getX(), getY() + moveDistance);
+        }
     }
 
-    /**
-     * Moves the bounce bar down
-     * @param moveDistance The distance the bounce bar should move
-     */
-    public void moveDown(int moveDistance) {
-        setLocation(getX(), getY() + moveDistance);
-    }
 }
