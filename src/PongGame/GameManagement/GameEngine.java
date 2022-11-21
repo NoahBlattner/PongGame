@@ -48,8 +48,8 @@ public class GameEngine implements Runnable {
                 // Update last frame time
                 lastFrameTime = currentFrameTime;
 
-                // Delay tick
-                // Sleep for 1 millisecond while actually sleep for ~15 milliseconds
+                // Delay tick or else the game will run too fast
+                // Or not at all -> multiplications with deltatime 0
                 try {
                     TimeUnit.MILLISECONDS.sleep(1);
                 } catch (InterruptedException e) {
