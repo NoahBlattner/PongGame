@@ -6,6 +6,8 @@ import java.awt.*;
 
 public class BounceBar extends Panel {
 
+    private float sizeRelativeToScreen = 0.15f;
+
     /**
      * @param player The player this bar belongs to
      * @param gameWindowWidth The width of the parent window
@@ -16,8 +18,8 @@ public class BounceBar extends Panel {
         super();
 
         // Set size
-        setSize(20, 100);
-        setPreferredSize(new Dimension(20, (int) (gameWindowHeight * 0.15)));
+        setPreferredSize(new Dimension(20, (int) (gameWindowHeight * sizeRelativeToScreen)));
+        setSize(getPreferredSize());
 
         // Set style
         setBackground(Color.white);

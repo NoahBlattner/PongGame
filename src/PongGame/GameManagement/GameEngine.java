@@ -4,6 +4,8 @@ import PongGame.EPlayer;
 import PongGame.GameWindow.GameWindow;
 
 import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.concurrent.TimeUnit;
 
 public class GameEngine implements Runnable {
@@ -91,6 +93,21 @@ public class GameEngine implements Runnable {
             instance.gameWindow = new GameWindow();
             instance.gamemode = new Gamemode(instance.gameWindow);
 
+            instance.gameWindow.addKeyListener(new KeyAdapter() {
+                @Override
+                public void keyPressed(KeyEvent e) {
+                    if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                        if (instance.gameState == GameState.PAUSED) {
+                            instance.resumeGame();
+                        } else if (instance.gameState == GameState.RUNNING) {
+                            instance.pauseGame();
+                        }
+                    } else if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+                        instance.stopGame();
+                    }
+                }
+            });
+
             // Start tick thread
             instance.tickThread.start();
             System.out.println("Game started");
@@ -117,6 +134,7 @@ public class GameEngine implements Runnable {
      */
     public void resumeGame() {
         if (gameState == GameState.PAUSED) {
+            lastFrameTime = System.currentTimeMillis();
             gameState = GameState.RUNNING;
             gamemode.resume();
             System.out.println("Game resumed");
@@ -132,11 +150,12 @@ public class GameEngine implements Runnable {
         if (instance != null) {
             gameState = GameState.STOPPED;
             instance = null;
-            // Close the game window
             gamemode = null;
-            gameWindow = null;
+
+            // Close the game window
             gameWindow.dispose();
-            System.out.println("Game stopped");
+            gameWindow = null;
+
         } else {
             throw new NoGameRunningException();
         }

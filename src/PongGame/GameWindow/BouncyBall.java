@@ -23,6 +23,13 @@ public class BouncyBall extends Panel {
             this.x = x;
             this.y = y;
         }
+
+        public float normalize() {
+            float power = (float) Math.sqrt(x * x + y * y);
+            x /= power;
+            y /= power;
+            return power;
+        }
     }
 
     public BouncyBall(GameWindow gameWindow) {
@@ -40,6 +47,8 @@ public class BouncyBall extends Panel {
     }
 
     public void move(float deltaTime) {
+        ballDirection.normalize();
+
         setLocation(getX() + (int) (ballDirection.x * ballSpeed * deltaTime),
                 getY() + (int) (ballDirection.y * ballSpeed * deltaTime));
 
@@ -51,9 +60,15 @@ public class BouncyBall extends Panel {
         if (isCollidingWith(player1BounceBar) && lastCollidedBounceBar != player1BounceBar) {
             lastCollidedBounceBar = player1BounceBar;
             ballDirection.x = 1;
+            ballDirection.y = (float) (Math.random() * 2 - 1);
         } else if (isCollidingWith(player2BounceBar) && lastCollidedBounceBar != player2BounceBar) {
             lastCollidedBounceBar = player2BounceBar;
             ballDirection.x = -1;
+            ballDirection.y = (float) (Math.random() * 2 - 1);
+        }
+
+        if (getY() < 0 || getY() > gameWindow.getHeight() - size) {
+            ballDirection.y *= -1;
         }
     }
 

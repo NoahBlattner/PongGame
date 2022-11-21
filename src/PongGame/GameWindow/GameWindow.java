@@ -7,6 +7,7 @@ import java.awt.*;
 
 public class GameWindow extends JFrame {
 
+    private BouncyBall bouncyBall2;
     private BounceBar player1BounceBar;
     private BounceBar player2BounceBar;
 
@@ -51,4 +52,5 @@ public class GameWindow extends JFrame {
     public BouncyBall getBouncyBall() {
         return bouncyBall;
     }
+
 }
