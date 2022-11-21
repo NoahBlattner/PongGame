@@ -31,17 +31,15 @@ public class GameWindow extends JFrame {
         player2BounceBar = new BounceBar(EPlayer.PLAYER2, getWidth(), getHeight());
         add(player2BounceBar);
 
-        /*
-        player2BounceBar = new BounceBar(EPlayer.PLAYER2);
-        player2BounceBar.setPreferredSize(new Dimension(20, 100));
-        player2BounceBar.setBounds(getContentPane().getWidth() - 10, getContentPane().getHeight() / 2, 20, 100);
-
-
-         */
-//      getContentPane().add(player2BounceBar);
-
-
         setVisible(true);
+    }
+
+    public BounceBar getPlayer1BounceBar() {
+        return player1BounceBar;
+    }
+
+    public BounceBar getPlayer2BounceBar() {
+        return player2BounceBar;
     }
 
 }

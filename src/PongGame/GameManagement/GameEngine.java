@@ -6,6 +6,8 @@ import java.util.concurrent.TimeUnit;
 
 public class GameEngine implements Runnable {
 
+    private static GameEngine instance;
+
     // Game variables
     private Gamemode gamemode;
     private GameWindow gameWindow;
@@ -23,6 +25,24 @@ public class GameEngine implements Runnable {
         RUNNING,
         PAUSED,
         STOPPED
+    }
+
+    /**
+     * Singleton constructor
+     */
+    private GameEngine() {
+        instance = this;
+    }
+
+    /**
+     * Singleton getter
+     * @return GameEngine instance
+     */
+    public static GameEngine getInstance() {
+        if (instance != null) {
+            return instance;
+        } 
+        throw new NoGameRunningException();
     }
 
     private void tick(long deltaTime) {
@@ -62,14 +82,15 @@ public class GameEngine implements Runnable {
     /**
      * Start the game
      */
-    public void startGame() {
-        if (gameState == GameState.UNINITIALIZED) {
-            gamemode = new Gamemode();
-            gameWindow = new GameWindow();
-            gameState = GameState.RUNNING;
+    public static void startGame() {
+        if (instance == null) {
+            instance = new GameEngine();
+            instance.gameState = GameState.RUNNING;
+            instance.gameWindow = new GameWindow();
+            instance.gamemode = new Gamemode(instance.gameWindow);
 
             // Start tick thread
-            tickThread.start();
+            instance.tickThread.start();
             System.out.println("Game started");
         } else {
             throw new GameAlreadyStartedException();
@@ -81,11 +102,11 @@ public class GameEngine implements Runnable {
      */
     public void pauseGame() {
         if (gameState == GameState.RUNNING) {
-            gamemode.pause();
             gameState = GameState.PAUSED;
+            gamemode.pause();
             System.out.println("Game paused");
         } else {
-            throw new GameNotRunningException();
+            throw new NoGameRunningException();
         }
     }
 
@@ -94,8 +115,8 @@ public class GameEngine implements Runnable {
      */
     public void resumeGame() {
         if (gameState == GameState.PAUSED) {
-            gamemode.resume();
             gameState = GameState.RUNNING;
+            gamemode.resume();
             System.out.println("Game resumed");
         } else {
             throw new GameNotPausedException();
@@ -106,15 +127,20 @@ public class GameEngine implements Runnable {
      * Stop the game
      */
     public void stopGame() {
-        if (gameState == GameState.RUNNING || gameState == GameState.PAUSED) {
+        if (instance != null) {
+            gameState = GameState.STOPPED;
+            instance = null;
             // Close the game window
-            gameWindow.dispose();
             gamemode = null;
             gameWindow = null;
-            gameState = GameState.STOPPED;
+            gameWindow.dispose();
             System.out.println("Game stopped");
         } else {
-            throw new GameNotRunningException();
+            throw new NoGameRunningException();
         }
+    }
+
+    public GameWindow getGameWindow() {
+        return gameWindow;
     }
 }
