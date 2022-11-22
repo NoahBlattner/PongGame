@@ -22,7 +22,7 @@ public class BounceBar extends Panel {
         setSize(getPreferredSize());
 
         // Set style
-        setBackground(Color.white);
+        setBackground(Color.green);
 
         // Set position
         // If player is player 1

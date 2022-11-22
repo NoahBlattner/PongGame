@@ -40,7 +40,7 @@ public class BouncyBall extends Panel {
 
         setLocation(gameWindow.getWidth() / 2 - size / 2, gameWindow.getHeight() / 2 - size / 2);
         setSize(size, size);
-        setBackground(Color.WHITE);
+        setBackground(Color.green);
 
         // Set random direction
         ballDirection.x = (Math.random() > 0.5) ? 1 : -1;
